@@ -1,0 +1,483 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LearnHub | Advanced Learning Platform</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div class="app-container" id="app-container">
+    
+    <!-- LOGIN/REGISTER PAGE -->
+    <div class="auth-page" id="auth-page">
+        <div class="auth-container">
+            <div class="auth-box">
+                <h1 class="auth-logo">📚 LearnHub</h1>
+                <p class="auth-tagline">Your Personal Learning Assistant</p>
+
+                <!-- Login Form -->
+                <div class="auth-form" id="login-form">
+                    <h2>Welcome Back</h2>
+                    <input type="email" id="login-email" placeholder="Email address" required>
+                    <input type="password" id="login-password" placeholder="Password" required>
+                    <button class="auth-btn" id="login-btn">Login</button>
+                    <p class="auth-toggle">Don't have an account? <a href="#" onclick="toggleAuthForm()">Sign up</a></p>
+                </div>
+
+                <!-- Register Form -->
+                <div class="auth-form hidden" id="register-form">
+                    <h2>Create Account</h2>
+                    <input type="text" id="register-username" placeholder="Username" required>
+                    <input type="email" id="register-email" placeholder="Email address" required>
+                    <input type="password" id="register-password" placeholder="Password (min 6 chars)" required>
+                    <input type="password" id="register-confirm-password" placeholder="Confirm password" required>
+                    <button class="auth-btn" id="register-btn">Sign Up</button>
+                    <p class="auth-toggle">Already have an account? <a href="#" onclick="toggleAuthForm()">Login</a></p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- MAIN APP (Hidden until login) -->
+    <div class="main-app" id="main-app" style="display: none;">
+        
+        <!-- SIDEBAR NAVIGATION -->
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <h1 class="logo">📚 LearnHub</h1>
+                <p class="tagline">Master Your Knowledge</p>
+                <p class="user-name" id="user-name-display">User</p>
+            </div>
+
+            <nav class="sidebar-nav">
+                <button class="nav-btn active" data-tab="dashboard">
+                    <span class="icon">📊</span> Dashboard
+                </button>
+                <button class="nav-btn" data-tab="documents">
+                    <span class="icon">📄</span> Documents
+                </button>
+                <button class="nav-btn" data-tab="progress">
+                    <span class="icon">📈</span> Progress
+                </button>
+                <button class="nav-btn" data-tab="qa">
+                    <span class="icon">💬</span> Ask AI
+                </button>
+                <button class="nav-btn" data-tab="image">
+                    <span class="icon">🖼️</span> Image Analysis
+                </button>
+                <button class="nav-btn" data-tab="solver">
+                    <span class="icon">🧮</span> Solve Problems
+                </button>
+                <button class="nav-btn" data-tab="leaderboard">
+                    <span class="icon">🏆</span> Leaderboard
+                </button>
+                <button class="nav-btn" data-tab="forum">
+                    <span class="icon">💬</span> Forum
+                </button>
+                <button class="nav-btn" data-tab="preferences">
+                    <span class="icon">⚙️</span> Preferences
+                </button>
+            </nav>
+
+            <div class="sidebar-section">
+                <h3>Quick Stats</h3>
+                <div class="quick-stats">
+                    <div class="quick-stat">
+                        <span class="stat-icon">📚</span>
+                        <span class="stat-text"><strong id="doc-count">0</strong> Documents</span>
+                    </div>
+                    <div class="quick-stat">
+                        <span class="stat-icon">📈</span>
+                        <span class="stat-text"><strong id="avg-progress">0</strong>% Progress</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="sidebar-footer">
+                <button class="logout-btn" id="logout-btn">Logout</button>
+            </div>
+        </aside>
+
+        <!-- MAIN CONTENT -->
+        <main class="main-content">
+
+            <!-- DASHBOARD TAB -->
+            <section class="tab-content active" id="dashboard-tab">
+                <header class="content-header">
+                    <h2>Welcome Back! 👋</h2>
+                    <p>Track your learning progress and continue where you left off</p>
+                </header>
+
+                <div class="dashboard-grid">
+                    <!-- Gamification Panel -->
+                    <div class="gamification-panel">
+                        <div class="points-display">⭐ <span id="points-display">0</span> XP</div>
+                        <div class="streak-indicator">🔥 <span id="streak-display">0</span> Day Streak</div>
+                        <div style="margin-top: 10px;">
+                            <span class="achievement-badge">🏆 Learner</span>
+                            <span class="achievement-badge">📚 Scholar</span>
+                            <span class="achievement-badge">🚀 Explorer</span>
+                        </div>
+                    </div>
+
+                    <!-- Stats Cards -->
+                    <div class="stats-container">
+                        <div class="stat-card">
+                            <h4>📚 Documents</h4>
+                            <p class="stat-number" id="total-docs">0</p>
+                        </div>
+                        <div class="stat-card">
+                            <h4>📈 Avg Progress</h4>
+                            <p class="stat-number" id="total-progress">0%</p>
+                        </div>
+                        <div class="stat-card">
+                            <h4>🎯 Study Goal</h4>
+                            <p class="stat-number" id="study-goal-display" style="font-size: 14px;">Not set</p>
+                        </div>
+                    </div>
+
+                    <!-- Recent Documents -->
+                    <div class="section-card">
+                        <h3>📄 Recent Documents</h3>
+                        <div class="documents-grid" id="recent-documents">
+                            <p class="empty-state">No documents yet. Upload one to get started!</p>
+                        </div>
+                    </div>
+
+                    <!-- Quick Actions -->
+                    <div class="section-card">
+                        <h3>🚀 Quick Actions</h3>
+                        <div class="quick-actions">
+                            <button class="action-btn" id="quick-upload-btn">
+                                <span class="icon">📤</span> Upload Document
+                            </button>
+                            <button class="action-btn" onclick="showTab('qa')">
+                                <span class="icon">💬</span> Ask AI Question
+                            </button>
+                            <button class="action-btn" onclick="showTab('solver')">
+                                <span class="icon">🧮</span> Solve Problem
+                            </button>
+                            <button class="action-btn" onclick="showTab('image')">
+                                <span class="icon">🖼️</span> Analyze Image
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- DOCUMENTS TAB -->
+            <section class="tab-content" id="documents-tab">
+                <header class="content-header">
+                    <h2>📄 My Documents</h2>
+                    <p>Manage and track your learning materials</p>
+                </header>
+
+                <div class="documents-section">
+                    <div class="upload-area" id="upload-area">
+                        <input type="file" id="file-input" accept=".pdf,.doc,.docx,.txt,.ppt,.pptx" style="display: none;">
+                        <svg class="upload-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                            <polyline points="17 8 12 3 7 8"></polyline>
+                            <line x1="12" y1="3" x2="12" y2="15"></line>
+                        </svg>
+                        <h3>Drop your documents here</h3>
+                        <p>or click to browse (PDF, DOC, DOCX, TXT, PPT, PPTX)</p>
+                    </div>
+
+                    <div class="documents-list-container">
+                        <h3>Your Documents</h3>
+                        <div class="documents-list" id="documents-list">
+                            <p class="empty-state">No documents uploaded yet</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- PROGRESS TAB -->
+            <section class="tab-content" id="progress-tab">
+                <header class="content-header">
+                    <h2>📈 Learning Progress</h2>
+                    <p>Track your learning journey</p>
+                </header>
+
+                <div class="progress-section">
+                    <div class="progress-container" id="progress-container">
+                        <p class="empty-state">Upload documents to track your progress</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- PREFERENCES TAB -->
+            <section class="tab-content" id="preferences-tab">
+                <header class="content-header">
+                    <h2>⚙️ Preferences</h2>
+                    <p>Personalize your learning experience</p>
+                </header>
+
+                <div class="preferences-section">
+                    <div class="pref-card">
+                        <h3>🎯 What would you like to study?</h3>
+                        <div class="form-group">
+                            <label>Subject/Topic</label>
+                            <input type="text" id="study-subject" placeholder="e.g., Python Programming, Data Science, etc.">
+                        </div>
+
+                        <div class="form-group">
+                            <label>Preferred Learning Style</label>
+                            <select id="learning-style">
+                                <option value="">-- Select --</option>
+                                <option value="visual">Visual (Videos, Images, Diagrams)</option>
+                                <option value="auditory">Auditory (Lectures, Discussions)</option>
+                                <option value="reading">Reading & Writing (Books, Notes)</option>
+                                <option value="kinesthetic">Hands-on (Experiments, Projects)</option>
+                                <option value="mixed">Mixed (Combination)</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label>Time per Study Session (minutes)</label>
+                            <input type="number" id="study-time" value="30" min="15" max="180">
+                        </div>
+
+                        <button class="save-btn" id="save-preferences-btn">Save Preferences</button>
+                    </div>
+
+                    <div class="pref-card">
+                        <h3>📊 Overall Study Goal</h3>
+                        <div class="form-group">
+                            <label>What's your main learning goal?</label>
+                            <textarea id="study-goal" placeholder="Describe what you want to achieve..." rows="4"></textarea>
+                        </div>
+                        <button class="save-btn" id="save-goal-btn">Update Goal</button>
+                    </div>
+
+                    <div class="pref-card">
+                        <h3>🔐 Account Settings</h3>
+                        <p>User: <strong id="account-email">user@email.com</strong></p>
+                        <button class="danger-btn" id="logout-btn-2">Logout</button>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Q&A TAB -->
+            <section class="tab-content" id="qa-tab">
+                <header class="content-header">
+                    <h2>💬 Ask AI - Get Instant Answers</h2>
+                    <p>Ask any question and get detailed answers with references from web search</p>
+                </header>
+
+                <div class="qa-section">
+                    <div class="qa-container">
+                        <div class="chat-box">
+                            <div class="chat-history" id="chat-history">
+                                <div class="chat-message message-ai">
+                                    <div class="message-content">
+                                        👋 Hi! I'm your AI Learning Assistant. Ask me anything about your studies - math problems, English essays, science concepts, coding questions, or anything else! I'll provide detailed explanations with references. 📚
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="chat-input-area">
+                                <input type="text" id="qa-input" class="chat-input-field" placeholder="Ask your question... e.g., 'Explain photosynthesis' or 'How to solve quadratic equations?'">
+                                <button class="chat-send-btn" id="qa-send-btn">Ask</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- IMAGE ANALYSIS TAB -->
+            <section class="tab-content" id="image-tab">
+                <header class="content-header">
+                    <h2>🖼️ Image Analysis</h2>
+                    <p>Upload images of problems or diagrams to get solutions and explanations</p>
+                </header>
+
+                <div class="image-analysis-section">
+                    <div class="image-upload-area" id="image-upload-area">
+                        <input type="file" id="image-input" accept="image/*" style="display: none;">
+                        <div style="font-size: 48px;">📸</div>
+                        <h3>Upload Image to Analyze</h3>
+                        <p>Upload photos of math problems, diagrams, chemistry equations, or any learning materials</p>
+                    </div>
+
+                    <div id="image-result-container" style="display: none;">
+                        <img id="image-preview" class="image-preview" alt="Preview">
+                        <div class="image-analysis-result">
+                            <h3>📊 Analysis Result</h3>
+                            <div id="image-analysis-text" style="line-height: 1.8; margin-top: 10px;"></div>
+                            <div class="message-reference" id="image-references"></div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- PROBLEM SOLVER TAB -->
+            <section class="tab-content" id="solver-tab">
+                <header class="content-header">
+                    <h2>🧮 Problem Solver</h2>
+                    <p>Solve problems across any subject - Math, Physics, Chemistry, English, Biology, and more</p>
+                </header>
+
+                <div class="problem-solver-section">
+                    <div class="subject-selector" id="subject-selector">
+                        <button class="subject-btn active" data-subject="math">📐 Math</button>
+                        <button class="subject-btn" data-subject="physics">⚛️ Physics</button>
+                        <button class="subject-btn" data-subject="chemistry">🧪 Chemistry</button>
+                        <button class="subject-btn" data-subject="biology">🧬 Biology</button>
+                        <button class="subject-btn" data-subject="english">📖 English</button>
+                        <button class="subject-btn" data-subject="history">📜 History</button>
+                        <button class="subject-btn" data-subject="geography">🌍 Geography</button>
+                        <button class="subject-btn" data-subject="economics">💰 Economics</button>
+                    </div>
+
+                    <div class="problem-input-area">
+                        <div class="form-group">
+                            <label>Paste your problem here:</label>
+                            <textarea class="problem-textarea" id="problem-input" placeholder="Example: Find the value of x in: 2x + 5 = 13"></textarea>
+                        </div>
+                        <button class="save-btn" id="solve-btn">Get Solution</button>
+                    </div>
+
+                    <div id="solution-container" style="display: none;">
+                        <div class="solution-card">
+                            <h3>✅ Solution</h3>
+                            <div id="solution-text" style="line-height: 1.8; margin-top: 10px;"></div>
+                            <div class="message-reference" id="solution-references"></div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- LEADERBOARD TAB -->
+            <section class="tab-content" id="leaderboard-tab">
+                <header class="content-header">
+                    <h2>🏆 Leaderboard</h2>
+                    <p>See how you rank among other learners</p>
+                </header>
+
+                <div class="leaderboard-section">
+                    <div class="leaderboard-container">
+                        <div class="leaderboard-header">
+                            <h3>Top Learners This Month</h3>
+                            <p>Rankings based on XP points earned</p>
+                        </div>
+                        <div class="leaderboard-list">
+                            <div class="leaderboard-item top-three">
+                                <div class="rank">🥇</div>
+                                <div class="user-info">
+                                    <div class="user-name">Alex Johnson</div>
+                                    <div class="user-xp">2,450 XP</div>
+                                </div>
+                            </div>
+                            <div class="leaderboard-item top-three">
+                                <div class="rank">🥈</div>
+                                <div class="user-info">
+                                    <div class="user-name">Sarah Chen</div>
+                                    <div class="user-xp">2,320 XP</div>
+                                </div>
+                            </div>
+                            <div class="leaderboard-item top-three">
+                                <div class="rank">🥉</div>
+                                <div class="user-info">
+                                    <div class="user-name">Mike Rodriguez</div>
+                                    <div class="user-xp">2,180 XP</div>
+                                </div>
+                            </div>
+                            <div class="leaderboard-item">
+                                <div class="rank">4</div>
+                                <div class="user-info">
+                                    <div class="user-name">Emma Davis</div>
+                                    <div class="user-xp">1,950 XP</div>
+                                </div>
+                            </div>
+                            <div class="leaderboard-item">
+                                <div class="rank">5</div>
+                                <div class="user-info">
+                                    <div class="user-name">You</div>
+                                    <div class="user-xp" id="user-rank-xp">1,200 XP</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- FORUM TAB -->
+            <section class="tab-content" id="forum-tab">
+                <header class="content-header">
+                    <h2>💬 Community Forum</h2>
+                    <p>Discuss topics, ask questions, and learn together</p>
+                </header>
+
+                <div class="forum-section">
+                    <div class="forum-container">
+                        <div class="forum-header">
+                            <button class="create-post-btn" id="create-post-btn">+ New Post</button>
+                        </div>
+                        <div class="forum-posts">
+                            <div class="forum-post">
+                                <div class="post-header">
+                                    <h4>Help with Calculus Integration</h4>
+                                    <span class="post-author">by Alex Johnson</span>
+                                    <span class="post-time">2 hours ago</span>
+                                </div>
+                                <p class="post-content">I'm struggling with integration by parts. Can someone explain the LIATE rule?</p>
+                                <div class="post-stats">
+                                    <span>👍 5</span> <span>💬 3 replies</span>
+                                </div>
+                            </div>
+                            <div class="forum-post">
+                                <div class="post-header">
+                                    <h4>Best Resources for Learning Python</h4>
+                                    <span class="post-author">by Sarah Chen</span>
+                                    <span class="post-time">1 day ago</span>
+                                </div>
+                                <p class="post-content">What are your favorite Python learning resources? Books, courses, websites?</p>
+                                <div class="post-stats">
+                                    <span>👍 12</span> <span>💬 8 replies</span>
+                                </div>
+                            </div>
+                            <div class="forum-post">
+                                <div class="post-header">
+                                    <h4>Study Tips for Finals Week</h4>
+                                    <span class="post-author">by Mike Rodriguez</span>
+                                    <span class="post-time">3 days ago</span>
+                                </div>
+                                <p class="post-content">Finals are coming up! Share your best study strategies and time management tips.</p>
+                                <div class="post-stats">
+                                    <span>👍 18</span> <span>💬 15 replies</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+        </main>
+
+        <!-- FOOTER -->
+        <div class="app-footer" style="position: fixed; bottom: 0; right: 0; left: 280px; background: var(--bg-white); border-top: 1px solid var(--border-color); padding: 12px 20px; font-size: 11px;">
+            <div class="footer-developer">
+                💻 Developed by <strong>NGOGA Callioppe (The Youngstar)</strong>
+            </div>
+            <div style="color: var(--text-gray); font-size: 10px; margin-bottom: 8px;">
+                Full-Stack Developer (2 years) | Music Producer (4 years) | AI Educator
+            </div>
+            <div class="footer-copyright">
+                © 2024-2026 LearnHub. All rights reserved. | Built with ❤️ for learners worldwide
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Notifications -->
+<div class="notification" id="notification"></div>
+
+<!-- Hidden upload input -->
+<input type="file" id="hidden-file-input" accept=".pdf,.doc,.docx,.txt,.ppt,.pptx" style="display: none;">
+
+<script src="client.js"></script>
+</body>
+</html>

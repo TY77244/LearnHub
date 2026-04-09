@@ -1,0 +1,232 @@
+🚀 QUICK START GUIDE - LEARNHUB
+
+═══════════════════════════════════════════════════════════════
+
+WHAT'S NEW ✨
+═════════════
+
+✅ Fixed document upload issue - documents now appear in dashboard immediately!
+✅ Added complete login/logout system with JWT authentication
+✅ Learning progress tracking with visual sliders
+✅ "Tell me what to study" feature - ask what you want to learn
+✅ Study goals and preferences system
+✅ Dashboard with statistics and quick access
+✅ Python backend for mobile/cross-platform support
+✅ Responsive design for all devices
+
+═══════════════════════════════════════════════════════════════
+
+SETUP (Choose ONE option)
+══════════════════════════
+
+OPTION 1: WINDOWS
+─────────────────
+1. Double-click setup.bat
+   (or run: setup.bat)
+
+2. Once setup completes, open Command Prompt and run:
+   npm start
+
+3. Open app.html in your browser
+
+OPTION 2: LINUX/MAC
+───────────────────
+1. Open Terminal and run:
+   bash setup.sh
+
+2. Once setup completes, run:
+   npm start
+
+3. Open app.html in your browser
+
+OPTION 3: MANUAL SETUP
+──────────────────────
+1. Install Node.js from https://nodejs.org/
+2. Open Terminal/Command Prompt in this folder
+3. Run: npm install
+4. Run: npm start
+5. Open app.html in your browser
+
+═══════════════════════════════════════════════════════════════
+
+HOW TO USE
+══════════
+
+➊ FIRST TIME SETUP
+───────────────────
+1. Open app.html in your browser
+2. Click "Sign up" to create an account
+3. Enter:
+   - Username (any unique name)
+   - Email (valid email address)
+   - Password (minimum 6 characters)
+4. Click "Sign Up"
+
+➋ LOGIN
+────────
+1. Click "Login"
+2. Enter your email and password
+3. Click "Login"
+4. You're in! 🎉
+
+➌ UPLOAD DOCUMENTS
+───────────────────
+1. Click "Documents" in the sidebar
+2. Drag & drop files OR click the upload area
+3. Supported formats: PDF, DOC, DOCX, TXT, PPT, PPTX, JPG, PNG
+4. Document appears on your Dashboard immediately!
+
+➍ TRACK YOUR PROGRESS
+──────────────────────
+1. Click "Progress" in the sidebar
+2. Use the slider to update how much you've studied
+3. Progress percentage updates automatically
+4. View stats on your Dashboard
+
+➎ SET LEARNING GOALS
+──────────────────────
+1. Click "Preferences" in the sidebar
+2. Fill in:
+   - What subject you want to study
+   - Your learning style preference
+   - How long per session you want to study
+3. Click "Save Preferences"
+4. Set your overall study goal in the text area below
+5. Click "Update Goal"
+
+➏ VIEW DASHBOARD
+──────────────────
+1. Click "Dashboard" in the sidebar
+2. See your:
+   - Total documents uploaded
+   - Average learning progress
+   - Your study goals
+   - Recent documents with progress bars
+
+═══════════════════════════════════════════════════════════════
+
+TROUBLESHOOTING
+═════════════════
+
+❌ "Cannot upload file"
+→ Make sure backend is running (npm start)
+→ Check browser F12 console for errors
+→ Try a smaller file first
+
+❌ "Login not working"
+→ Verify you created an account first
+→ Check email and password are correct
+→ Clear browser cache (Ctrl+Shift+Delete)
+
+❌ "Documents not showing"
+→ Refresh the page (F5)
+→ Check if backend server is running
+→ Look at browser console for errors (F12)
+
+❌ "Port already in use"
+→ Another app is using port 5000
+→ Close other Node applications
+→ Or manually change port in app.js (line with PORT = 5000)
+
+═══════════════════════════════════════════════════════════════
+
+FILE STRUCTURE EXPLAINED
+═════════════════════════
+
+app.js              → Node.js backend server (REST API, database)
+client.js           → Frontend JavaScript (interactive UI)
+app.html            → Main web page (change to index.html if needed)
+style.css           → All styling and design
+structure.py        → Python backend (optional, for mobile)
+requirements.txt    → Python dependencies
+package.json        → Node.js dependencies
+learnhub.db         → Database (auto-created, stores all data)
+uploads/            → Folder for uploaded documents (auto-created)
+
+═══════════════════════════════════════════════════════════════
+
+IMPORTANT NOTES
+════════════════
+
+🔒 SECURITY
+→ Change SECRET_KEY in app.js before deploying to production
+→ Use HTTPS in production environment
+→ Never share your token with others
+
+📱 MOBILE SUPPORT
+→ Python backend available in structure.py
+→ Can be used for mobile apps and desktop applications
+→ See README.md for details
+
+📲 RESPONSIVE DESIGN
+→ Works on phones, tablets, and desktops
+→ Optimized for all screen sizes
+→ Try on your phone!
+
+🗄️ DATA STORAGE
+→ All data stored locally in learnhub.db
+→ Documents stored in uploads/ folder
+→ Can be backed up or moved safely
+
+═══════════════════════════════════════════════════════════════
+
+WHAT HAPPENS BEHIND THE SCENES
+════════════════════════════════
+
+When you upload a document:
+✓ File saved to uploads/ folder with unique timestamp
+✓ File info stored in database
+✓ Progress tracking entry created automatically
+✓ Document appears on dashboard instantly
+✓ Document added to your library
+
+When you update progress:
+✓ Completion percentage calculated
+✓ Database updated
+✓ Stats recalculated
+✓ Dashboard refreshed automatically
+
+═══════════════════════════════════════════════════════════════
+
+NEXT STEPS
+═══════════
+
+After getting comfortable with the app:
+
+1. 📚 Upload multiple documents and organize your learning
+2. 📊 Create a study schedule and track daily progress
+3. 🎯 Set ambitious learning goals
+4. 📱 Deploy Python backend for mobile access
+5. ☁️ Consider cloud backup of your documents and progress
+
+═══════════════════════════════════════════════════════════════
+
+FEATURES INCLUDED
+═══════════════════
+
+✅ Secure user authentication (login/logout)
+✅ Document upload with progress tracking
+✅ Learning progress visualization
+✅ Learning preferences and study goals
+✅ Dashboard with statistics
+✅ Responsive mobile-friendly design
+✅ Database storage (SQLite)
+✅ REST API for integrations
+✅ Python backend for mobility
+✅ File upload handling
+✅ User account management
+
+═══════════════════════════════════════════════════════════════
+
+READY TO GET STARTED? 🚀
+
+1. Run setup.bat (Windows) or setup.sh (Mac/Linux)
+2. Run npm start
+3. Open app.html
+4. Sign up and start uploading documents!
+
+Happy Learning! 📚
+
+═══════════════════════════════════════════════════════════════
+
+For detailed information, see README.md
